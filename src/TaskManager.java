@@ -35,7 +35,7 @@ public class TaskManager extends JFrame implements ActionListener {
 	    p.add(addButton);
 	    
 	    for (int i = 0; i < 2; i++) {
-	        JButton b = new JButton("Button " + i);
+	        JButton b = new JButton("Initial Course");
 	        p.add(b);
 	    }
 
@@ -66,7 +66,7 @@ public class TaskManager extends JFrame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
-			JButton b = new JButton("New Button");
+			JButton b = new JButton("New Course");
 	        p.add(b);
 	        p.revalidate();
 			
