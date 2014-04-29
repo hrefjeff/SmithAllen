@@ -1,0 +1,21 @@
+NameOfPerson
+
+# // <---- delimiter for courses
+, // <---- delimiter for tasks
+
+#
+Course0
+,
+task1
+subtask2
+subtask3
+subtask4
+
+,
+task2
+subtask1
+subtask2
+subt...
+
+#
+course1

@@ -1,19 +1,24 @@
 import java.awt.*;
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.nio.file.*;
+import java.awt.Desktop;
 
 @SuppressWarnings("serial")
-public class TaskManager extends JFrame implements ActionListener {
+public class TaskManager extends JFrame {
 	
-	JTextField managerName = new JTextField("Default Name", 35);
+	//JButton click = new JButton("Click Here");
+	//JLabel alert = new JLabel("You Have Clicked A Label");
 	
+	// Menu options
 	JMenuBar menubar;
-    JPanel MainPanel = new JPanel(new GridLayout(6,0));
-    
-	AddJPanelButtonHandler AddJPanel;
+	JMenu oneMenu;
+	JMenuItem openItem, saveItem, exitItem;
+	
+	String[] outputText;
 	
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	Name      : TaskManager
@@ -24,106 +29,118 @@ public class TaskManager extends JFrame implements ActionListener {
 	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	public TaskManager()
 	{
-		setLayout(new BorderLayout());
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MainPanel DisplayPanel = new MainPanel();
 		
-		
-	    JScrollPane jsp = new JScrollPane(MainPanel);
-	    
-	    jsp.setPreferredSize(new Dimension(300,300));
-	    jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	    jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		//*************************Menu Section*************************
+		menubar = new JMenuBar();
+		this.setJMenuBar(menubar);
 
-		managerName.setHorizontalAlignment(JTextField.CENTER);
-		managerName.selectAll();
-		MainPanel.add(managerName);
-		managerName.addActionListener(new TextManipulationHandler());
-	    
-		MainPanel.addMouseListener(new TextManipulationHandler());
-		
-	    JButton addButton = new JButton("Add Course Button");
-	    AddJPanel = new AddJPanelButtonHandler();
-	    addButton.addActionListener(AddJPanel);
-	    MainPanel.add(addButton);
-	    
-	    //p.add(menubar, BorderLayout.NORTH);
-	    
-	    for (int i = 0; i < 1; i++) {
-	        JButton b = new JButton("Initial Course"+i);
-	        b.setVisible(false);
-	        // ***Not gonna work because gridlayout sets all cells the same size
-	        // ***b.setSize(1, 1);
-	        MainPanel.add(b);
-	    }
+		oneMenu = new JMenu("File");
+		menubar.add(oneMenu);
 
-	    add(jsp, BorderLayout.CENTER);
-	    setLocation(300, 300);
-	    pack();
-	    
-	}
+		openItem = new JMenuItem("Open");
+		saveItem = new JMenuItem("Save");
+		exitItem = new JMenuItem("Exit");
 		
-	// When button is pressed
-	public void actionPerformed(ActionEvent e){
-		return;
-	}
-	
-	//========Custom action listener===========
-	public class AddJPanelButtonHandler implements ActionListener
-	{
+		oneMenu.add(openItem);
+		oneMenu.add(saveItem);
+		oneMenu.add(exitItem);
+		
+		MenuListener menuListen = new MenuListener();
+		openItem.addActionListener(menuListen);
+		saveItem.addActionListener(menuListen);
+		exitItem.addActionListener(menuListen);
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			JButton b = new JButton("New Course");
-	        MainPanel.add(b);
-	        MainPanel.revalidate();
-			
-		}
+		/***********Add clickable test label to MainPanel************
+		click.setBounds(110,50,80,20);
+		click.setBorderPainted(false); 
+		click.setContentAreaFilled(false); 
+		click.setFocusPainted(false); 
+		click.setOpaque(false);
+		alert.setBounds(70,100,180,20);
+		add(click);
+		add(alert);
+		alert.setVisible(false);
 		
-	}
-
-	public class TextManipulationHandler implements ActionListener, MouseListener
-	{
-	
-		int xpos;
-		int ypos;
-		
-		@Override
-		public void actionPerformed(ActionEvent e)
+		click.addMouseListener(new MouseListener()
 		{
-			managerName.setEditable(false);
-		}
-		
-		 public void mouseExited (MouseEvent e) { 
-		 
-		 }
-
-		@Override
-		public void mouseClicked(MouseEvent click) {
-			xpos = click.getX();
-			ypos = click.getY();
-			
-			if ((xpos != 0) && (ypos != 0))
-			{
-				managerName.setEditable(false); 
+			public void mouseClicked(MouseEvent arg0) {
+			alert.setVisible(true);
 			}
-		}
+			public void mouseEntered(MouseEvent arg0) {
+			}
+			public void mouseExited(MouseEvent arg0) {
+			}
+			public void mousePressed(MouseEvent arg0) {
+			}
+			public void mouseReleased(MouseEvent arg0) {
+			}
+		});
+		 */
+		
+		/*for (int i = 0; i < 1; i++) {
+		    JButton b = new JButton("Initial Course"+i);
+		    //b.setVisible(false);
+		    // ***Not gonna work because gridlayout sets all cells the same size
+		    // ***b.setSize(1, 1);
+		    MainPanel.add(b);
+		}*/
 
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent arg0) {
- 
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		} 
+		add(DisplayPanel);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocation(500, 500);
+		pack();
+	    
 	}
+		
+	
+	private void saveFile()
+	{
+		//String inputText = managerName.getText();
+		outputText = new String[10];
+		//outputText[0] = inputText;
+		
+		try {
+			PrintWriter outFile = new PrintWriter("taskSave.txt");
+			outFile.println(outputText[0]);
+			outFile.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("test");
+	}
+	
+	
+	public class MenuListener extends AbstractAction{
+		public void actionPerformed(ActionEvent e){
+			if (e.getSource() == openItem)
+			{
+				final JFileChooser fc = new JFileChooser();
+
+				JFileChooser fileChooser = new JFileChooser();
+				
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				
+				int result = fileChooser.showOpenDialog(new TaskManager());
+				
+				//System.out.println("Opening: " + managerName.getName() + ".");
+				
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
+			}
+			else if (e.getSource() == saveItem)
+			{
+				saveFile();						
+			}
+			else if (e.getSource() == exitItem){
+				 System.exit(0);
+			}
+			
+		}
+	}
+	
 }

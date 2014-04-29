@@ -19,13 +19,12 @@ public class Driver {
 		mySched.setBounds(40,40,400,300);
 		mySched.setVisible(true);
 		
-		// Try to read from text file provided
+		/* Try to read from text file provided
 		try
 		{
 			//Path path = Paths.get("test.txt");
-			Path path = Paths.get("C:\\Users/elJeffeh/Documents/Github/SmithAllen/src/test.txt");
+			Path path = Paths.get("C:\\Users/elJeffeh/Documents/Github/SmithAllen/taskSave.txt");
 			String fileToRead = path.toAbsolutePath().toString();
-			System.out.println(fileToRead);
 			
 			br = new BufferedReader(new FileReader(fileToRead));
 		
@@ -36,11 +35,11 @@ public class Driver {
 			
 			while ((stringCurrentLine = br.readLine()) != null) {
 				dataArray[iterator] = stringCurrentLine;
-				mySched.MainPanel.add(new JButton(dataArray[iterator]));
+				mySched.add(new JButton(dataArray[iterator]));
 				iterator++;
 			}
 			
-			mySched.MainPanel.revalidate();
+			mySched.revalidate();
 		    mySched.setVisible(true);
 			
 		}
@@ -50,7 +49,7 @@ public class Driver {
 			// TODO Auto-generated catch block
 			System.out.println("I'm fuckin up");
 			mySched.setVisible(true);
-		}
+		}*/
 
 	
 	}
