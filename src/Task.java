@@ -1,15 +1,4 @@
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
-public class Task extends JPanel {
+public class Task {
 
-	public void addTask(String taskname)
-	{
-		
-		
-		
-	}
-
-	
-	
 }

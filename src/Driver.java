@@ -16,7 +16,7 @@ public class Driver {
 	public static void main(String[] args) throws IOException {
 		
 		TaskManager mySched = new TaskManager();
-		mySched.setBounds(40,40,400,300);
+		mySched.setBounds(0,0,600,600);
 		mySched.setVisible(true);
 		
 		/* Try to read from text file provided
