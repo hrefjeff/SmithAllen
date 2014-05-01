@@ -13,13 +13,22 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
-public class SubTask extends TaskPanel {
+public class SubTask extends Task {
 	
 	public SubTask(){
-		super();
+		setLayout(new FlowLayout());
+		
+		setTaskName();
+		
+		setBasicButtons();
 		
 		setBackground(Color.BLUE);
+	}
+	
+	public SubTask(String subtaskname)
+	{
+		super();
 		
-		setLayout(new FlowLayout());
+		task = new JCheckBox(subtaskname);
 	}
 }

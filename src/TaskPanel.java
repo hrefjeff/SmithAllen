@@ -1,9 +1,14 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.*;
 
 import javax.swing.AbstractAction;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,50 +16,42 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class TaskPanel extends JPanel{
-
-	JPanel ContentPanel = new JPanel();
-	JTextField taskName = new JTextField("Task Name");
 	
-	JLabel editLabel;
-	JLabel deleteLabel;
-	JCheckBox task;
+	/**********************************
+	 * 
+	 * 			Tasktitle (JPanel)
+	 * 
+	 * ********************************
+	 * 
+	 * 
+	 * 		ContentPanel (GridLayout)
+	 * 
+	 * 
+	 * 
+	 **********************************/
+	
+	MainTask taskTitle;
+	ContentPanel subTaskWindow;
 	
 	JLabelHandler labelEvent;
 	
-	public TaskPanel(){
+	public TaskPanel()
+	{
+		setLayout(new BorderLayout());
+		setBackground(Color.blue);
 		
-		//setLayout(new BorderLayout());
+		taskTitle = new MainTask();
+		taskTitle.addMouseListener(labelEvent);
+
+		add(taskTitle, BorderLayout.NORTH);
 		
-		//add(taskName, BorderLayout.NORTH);
-		
-		ContentPanel.setLayout(new BoxLayout(ContentPanel, BoxLayout.X_AXIS));
-		
-		String name = null;
-		name = JOptionPane.showInputDialog(null, "Task Name");
-		
-		if(name == null){
-			return;
-		}
-		else{
-			task = new JCheckBox(name);
-			ContentPanel.add(task);
-		}
-		
-		//**********Add edit & delete buttons*******************
-		labelEvent = new JLabelHandler();
-		
-		ImageIcon edit = new ImageIcon("edit.jpg");
-		editLabel = new JLabel(edit);
-		editLabel.addMouseListener(labelEvent);
-		
-		ImageIcon delete = new ImageIcon("delete.jpg");
-		deleteLabel = new JLabel(delete);
-		deleteLabel.addMouseListener(labelEvent);		
-		
-		add(ContentPanel);
-		add(editLabel);
-		add(deleteLabel);
+		subTaskWindow = new ContentPanel();
+		subTaskWindow.addMouseListener(labelEvent);
+
+		add(subTaskWindow, BorderLayout.CENTER);
 	}
+	
+	public void AddSubTask(){}
 	
 public class JLabelHandler extends AbstractAction implements MouseListener{
 		
@@ -70,21 +67,31 @@ public class JLabelHandler extends AbstractAction implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent click) {
-			if(click.getSource() == editLabel){
-				String name = task.getText();
+			
+			Task selectedTaskPanel = (Task) click.getSource();
+			
+			// edit task
+			if(selectedTaskPanel.getName() == "editLabel"){
+				String name = selectedTaskPanel.task.getText();
 				name = JOptionPane.showInputDialog(null, "SubTask Name", name);
 		
 				if(name == null){
 					return;
 				}
-		
+
 				else{
-					task.setText(name);
+					selectedTaskPanel.task.setText(name);
 				}
-			} 
-			else
+			}
+			// add task
+			else if (selectedTaskPanel.getName() == "addLabel")
 			{
-				// Delete the panel that calls this
+				System.out.println("In here");
+				subTaskWindow.AddSubTask();
+			}
+			// delete task
+			else if (selectedTaskPanel.getName() == "deleteLabel")
+			{
 				setVisible(false);
 			}
 		}
@@ -105,5 +112,6 @@ public class JLabelHandler extends AbstractAction implements MouseListener{
 			// TODO Auto-generated method stub
 			
 		} 
+		
 	}
 }

@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
-public class MainTask extends TaskPanel{
+public class MainTask extends Task{
 	
 	JLabel addLabel;
 	
@@ -32,12 +32,12 @@ public class MainTask extends TaskPanel{
 	
 		super();
 		
+		setBackground(Color.RED);
+		
 		//************Add an AddSubTaskButton*******************
 		mainTaskEvent = new MainTaskHandler();
 		ImageIcon add = new ImageIcon("add.jpg", "Add SubTask");
 		addLabel = new JLabel(add);
-		
-		addLabel.addMouseListener(mainTaskEvent);
 		
 		add(addLabel);
 	}
@@ -74,7 +74,7 @@ public class MainTask extends TaskPanel{
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			AddSubTask();
+			//AddSubTask();
 		}
 
 		@Override
@@ -100,13 +100,5 @@ public class MainTask extends TaskPanel{
 			// TODO Auto-generated method stub
 			
 		}
-	}
-	
-	public void AddSubTask()
-	{
-		add(Box.createRigidArea(new Dimension(0,4)));
-		SubTask newSub = new SubTask();
-		add(newSub);
-		revalidate();
 	}
 }

@@ -98,6 +98,8 @@ public class MainPanel extends JPanel {
 			JButton buttonPressed = (JButton)e.getSource();
 			String buttonName = buttonPressed.getText();
 			
+			System.out.println(buttonName);
+			
 			if (buttonName == "Add Course")
 			{
 				AddCourse();
@@ -129,8 +131,8 @@ public class MainPanel extends JPanel {
 	
 	public void AddTask()
 	{
-		ContentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-		MainTask newItem = new MainTask();
+		ContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		TaskPanel newItem = new TaskPanel();
     	ContentPanel.add(newItem);
     	ContentPanel.revalidate();
 	}
@@ -140,7 +142,7 @@ public class MainPanel extends JPanel {
 	//**************************************************************
 	public void AddTask(String taskName)
 	{
-		ContentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		ContentPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		MainTask newItem = new MainTask(taskName);
     	ContentPanel.add(newItem);
     	ContentPanel.revalidate();

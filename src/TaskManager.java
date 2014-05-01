@@ -53,7 +53,7 @@ public class TaskManager extends JFrame {
 		saveItem.addActionListener(menuListen);
 		exitItem.addActionListener(menuListen);
 		
-		add(DisplayPanel);
+		setContentPane(DisplayPanel);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocation(500, 500);
